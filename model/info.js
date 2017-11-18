@@ -6,33 +6,57 @@ class Info {
 
     getCurrentInfo(companyTicker) {
         return new Promise((resolve, reject) => {
-          
-            yahooFinance.quote({
-                symbol: companyTicker,
-                modules: ['price', 'summaryDetail']
-            }, function(err, quote) {
-                if(err){
+
+            console.log(companyTicker)
+            var cloudQuoteUrl = "http://api.cloudquote.net/fcon/getStockPrice.json?symbol="
+             +companyTicker +"&T=i9n6elr3s55ayeusjme3r3sor";
+            var findCompany = {
+                url: cloudQuoteUrl,
+                method: 'GET'
+              };
+              console.log('findCompany')
+              console.log(findCompany)
+              
+            
+            request.get(findCompany, function(err, body,req){
+                
+                console.log('body')
+                if (err) {
                     console.log(err)
                     resolve(err);
                 } else {
-                    var marketPrice = quote.price.regularMarketPrice;
-                    var marketChange = quote.price.regularMarketChangePercent;
-                    var yearHigh = quote.summaryDetail.fiftyTwoWeekHigh;
-                    var yearLow = quote.summaryDetail.fiftyTwoWeekLow;
-                    var marketCap = quote.summaryDetail.marketCap;
-                    if (marketCap != undefined) {
-                        marketCap = marketCap.toLocaleString(undefined,{
-                            minimumFractionDigits: 2
-                        });
+                    var priceObj = JSON.parse(req)
+                    console.log(priceObj.rows[0].Ask)
+                    console.log(priceObj)
+
+                    Number.prototype.after = function () {
+                        var value = parseInt(this.toString().split(".")[1], 10);//after
+                        return value ? value : 0;
                     }
-                    marketChange = (marketChange*100).toFixed(2);
-                    resolve(" The price of " + companyTicker + " is: $" 
-                    + marketPrice + ". The percent change for the day is: " + 
-                    marketChange + "%. " +  " The market cap is: $" + 
-                    marketCap +". " + " The year high price is: $" + yearHigh 
-                    + "." + " The year low price is: $" + yearLow + "." );
+                    
+                    var price = priceObj.rows[0].Price;
+                    var before = Math.floor(price)
+                    var aft = price.after();
+                    var yearLow = priceObj.rows[0].LowYTD;
+                    var yearHigh = priceObj.rows[0].HighYTD;
+                    var name = priceObj.rows[0].Name;
+                    var marketChangePercent = priceObj.rows[0].ChangePercent.toFixed(2);
+                    var marketChangePoint = priceObj.rows[0].Change.toFixed(2);
+                    if (marketChangePoint > 0) {
+                        marketChangePoint = '+' + marketChangePoint;
+                        console.log('marketChangePercent')                         
+                        console.log(marketChangePoint) 
+                    }
+                    
+                    resolve('<center><p id="ticker">' + companyTicker + '<br>' + 
+                        '<span>' + name +'</span>' + '<br>'+ '<br>' +  ' $'+
+                        '<span id="before">' + before + '</span>' + '.' + aft+   
+                        '<br>' +'<span id="today">' + marketChangePoint +
+                        '(' + marketChangePercent + '%)' + ' TODAY' + '</span>' + '</p></center>');
                 }
+
             });
+          
         });
     }
 

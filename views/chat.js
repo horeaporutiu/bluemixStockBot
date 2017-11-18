@@ -111,7 +111,7 @@ socket.on('chart', function(data){
         output.innerHTML += '<div class=' + fromWatson + '>' 
             + '<div class=' + 'bubble' + '>'
             + '<div id="container' + divCounter 
-            + '"' +'style="height: 80%; min-width:45%">';
+            + '"' +'style="height: 65%; min-width:45%">';
             + '</div>'+ '</div>' + '</div>'; 
 
       var graph = Highcharts.stockChart('container' + divCounter, {
