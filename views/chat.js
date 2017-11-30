@@ -23,19 +23,23 @@ var output = document.getElementById('output'),
 message.addEventListener('keypress', function(key){
     if (key.keyCode === 13 ) {
         socket.emit('chat', {
-            message: message.value
+            message: message.value,
         });
-        console.log('message.val: ')
-        console.log(message.value)
-
         if(getChart){
             socket.emit('chart', {
                 message: message.value
             });
         }
+        // console.log(message.value);    
+        message.value = '';    
+        
+        // if(getChart){
+        //     socket.emit('chart', {
+        //         message: message.value
+        //     });
+        // }
         
         // TODO: uncoomment line below. that one is only for debugging purposes
-       message.value = '';
     }
     
 })
@@ -84,6 +88,9 @@ socket.on('chat', function(data, helpText){
 
 socket.on('chart', function(data){
 
+    console.log('data')
+    console.log(data)
+
     console.log('chart messageCount: ')
     console.log(messageCount)
     // messageCount++;
@@ -95,9 +102,14 @@ socket.on('chart', function(data){
     var Arr1 = [];
 
     if (data.message !== undefined) {
+
+        console.log('dataMessage: ')
+        console.log(data.message)
  
         var j = data.message.length -1;
-
+        console.log('dataMessageLength: ')
+        console.log(j)
+        
         for (i = 0; i < data.message.length ; i++){
             Arr1 = [];
             Arr1[k] = data.message[j].date;
@@ -105,8 +117,8 @@ socket.on('chart', function(data){
             Arr2[i] = Arr1;
             j--;
         }
-
-        
+        console.log('arr2')
+        console.log(Arr2)
 
         output.innerHTML += '<div class=' + fromWatson + '>' 
             + '<div class=' + 'bubble' + '>'
@@ -121,11 +133,11 @@ socket.on('chart', function(data){
         },
 
         title: {
-            text: data.message[0].symbol + ' Historical Stock Price'
+            text: ' Historical Stock Price'
         },
 
         series: [{
-            name: data.message[0].symbol,
+            name: 'idk',
             data: Arr2,
             tooltip: {
                 valueDecimals: 2
@@ -139,5 +151,4 @@ socket.on('chart', function(data){
     chatDiv.scrollTop = chatDiv.scrollHeight;    
 
 });
-
 

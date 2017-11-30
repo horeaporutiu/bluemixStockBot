@@ -26,7 +26,7 @@ class Info {
                     resolve(err);
                 } else {
                     var priceObj = JSON.parse(req)
-                    console.log(priceObj.rows[0].Ask)
+                    // console.log(priceObj.rows[0].Ask)
                     console.log(priceObj)
 
                     Number.prototype.after = function () {
@@ -70,8 +70,50 @@ class Info {
             var year = dateObj.getUTCFullYear();
             
             var today = year + "-" + month + "-" + day;
+
+                        
             console.log('newDate: ')
             console.log(today);
+
+            var cloudQuoteUrl = "http://api.cloudquote.net/fcon/getStockPriceHistory.json?symbol="
+            +companyTicker +"&T=i9n6elr3s55ayeusjme3r3sor&from=2010-01-01&to=" + today;
+            var getPriceHistory = {
+                url: cloudQuoteUrl,
+                method: 'GET'
+            };
+
+            // request.get(getPriceHistory, function(err, body,req){
+            //     var histObj = JSON.parse(req)
+            //     // console.log(priceObj.rows[0].Ask)
+            //     var length = histObj.rows.length;
+            //     var something;
+
+            //     var i = 0;
+            //     var k = 0;
+            //     var Arr1 = [];
+            //     var Arr2 = [];
+
+   
+            //     var j = histObj.rows[i][0].length;
+            //     for(var i = 0; i < length; i++){
+            //         Arr1 = [];
+            //         Arr1[k] = histObj.rows[i][0];               
+            //         Arr1[k+1] = histObj.rows[i][4];    
+  
+            //         Arr2[i] = Arr1;
+            //         console.log('Arr2')
+            //         console.log(Arr2[0])
+            //         j--;
+                    
+            //     }
+            //     console.log('arr2: ')
+            //     console.log(Arr2)
+            //     resolve(Arr2)
+                
+            // });
+            
+
+
 
 
             yahooFinance.historical({
@@ -90,7 +132,8 @@ class Info {
                         quotes[i].date = quotes[i].date.getTime()  
                     }
                 }
-                // console.log(quotes)
+                console.log('quotes: ')
+                console.log(quotes)
                   resolve(quotes)
                 //...
               });

@@ -68,7 +68,8 @@ input{
 #ticker{
   font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
   font-size: 24px;
-  font-style: center;
+  text-align: center;
+  margin-right: 20px;
 }
 #before{
   font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
@@ -99,6 +100,12 @@ span{
 
 .watson p{
   margin-left: 20px;
+  margin-right: 20px;  
+}
+
+.user p {
+  margin-left: 20px;
+  margin-right: 20px; 
 }
 
 .watson .bubble {
@@ -134,7 +141,8 @@ span{
   padding:10px;
   color:white;
   border-radius: 18px;
-  margin-right:0px;
+  margin-right:10px;
+  margin-left:10px;  
 }
 
 .user .bubble::after{
