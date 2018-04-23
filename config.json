@@ -1,15 +1,8 @@
 {
-  "translateUsername" : "yourWatsonUsername",
-  "translatePassword" : "yourWatsonPassword",
-  "ttsUsername" : "yourWatsonUsername",
-  "ttsPassword" : "yourWatsonPassword",
-  "toneUsername" : "yourWatsonUsername",
-  "tonePassword" : "yourWatsonPassword",
-  "cloudantUsername" : "yourWatsonUsername",
-  "cloudantPassword" : "yourWatsonPassword",
+  "cloudantUsername" : "yourCloudantUsername",
+  "cloudantPassword" : "yourCloudantPassword",
   "cloudantDatabaseUrl" : "yourcloudantURLhere",
   "conversationUsername" : "yourWatsonUsername",
   "conversationPassword" : "yourWatsonPassword",
-  "conversationVersionDate" : "2017-05-26",
   "conversationWorkspace" : "yourWatsonWorkspace"
 }
